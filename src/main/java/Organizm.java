@@ -1,27 +1,21 @@
 public abstract class Organizm {
-    protected String name;
     protected String species;
-    protected int age;
+    protected double growthRate;
+    protected double carryingCapacity;
 
-    public Organizm(String name, String species, int age) {
-        this.name = name;
+    public Organizm(String species, double growthRate, double carryingCapacity) {
         this.species = species;
-        this.age = age;
+        this.growthRate = growthRate;
+        this.carryingCapacity = carryingCapacity;
     }
 
-    public String getName() {
-        return name;
+    public String getSpecies() {
+        return species;
     }
-    public String getSpecies(){return  species;}
+    public double getGrowthRate(){return growthRate;}
+    public double getCarryingCapacity() {
+        return carryingCapacity;
+    }
 
-    public int getAge() {
-        return age;
-    }
-
-    public abstract void interact();
-    @Override
-    public String toString(){
-        return "Organism{name='" + name + "', age=" + age + "}";
-    }
 
 }

@@ -14,7 +14,7 @@ public class Ecosystem {
 
     private void initializeResources() {
         resources.put("Температура", 25);
-        resources.put("Влажность", 60);
+        resources.put("Площадь экосистемы", 60);
         resources.put("Вода", 100);
     }
     public void setResource(String resourceName, int value) {
@@ -25,7 +25,6 @@ public class Ecosystem {
         }
     }
 
-
     public void save(String fileName) {
         List<String> data = new ArrayList<>();
         data.add("Ресурсы:");
@@ -35,12 +34,12 @@ public class Ecosystem {
 
         data.add("\nРастения:");
         for (Plant plant : plants) {
-            data.add(plant.getName() + ": " + plant.getAge() + ": " + plant.getColor() + ": " + plant.getHeight());
+            data.add(plant.getSpecies() + ": " + plant.getCarryingCapacity() + ": " + plant.getGrowthRate());
         }
 
         data.add("\nЖивотные:");
         for (Animal animal : animals) {
-            data.add(animal.getName() + ": " + animal.getAge());
+            data.add(animal.getSpecies() + ": " + animal.getCarryingCapacity() + ": " + animal.getGrowthRate() + ":" + animal.getMale() + ":" + animal.getFemale());
         }
 
         FileHandler.writeToFile(fileName + ".txt", data);
@@ -67,15 +66,15 @@ public class Ecosystem {
                         ecosystem.resources.put(parts[0], Integer.parseInt(parts[1]));
                     }
                     case "plants" -> {
-                        if (parts.length == 5) { // Ожидаем 4 части: Имя, Количество, Цвет, Доп. параметр
-                            ecosystem.plants.add(new Plant(parts[0], parts[1], Integer.parseInt(parts[2]), Integer.parseInt(parts[4]), parts[3]));
+                        if (parts.length == 3) { // Ожидаем 4 части: Имя, Количество, Цвет, Доп. параметр
+                            ecosystem.plants.add(new Plant(parts[0], Double.parseDouble(parts[1]), Double.parseDouble(parts[1])));
                         } else {
                             System.err.println("Неверный формат растения: " + line);
                         }
                     }
                     case "animals" -> {
-                        if (parts.length == 3) { // Ожидаем 2 части: Имя, Количество
-                            ecosystem.animals.add(new Animal(parts[0], parts[1], Integer.parseInt(parts[2])));
+                        if (parts.length == 5) { // Ожидаем 2 части: Имя, Количество
+                            ecosystem.animals.add(new Animal(parts[0], Double.parseDouble(parts[1]), Double.parseDouble(parts[2]), Integer.parseInt(parts[3]), Integer.parseInt(parts[4])));
                         } else {
                             System.err.println("Неверный формат животного: " + line);
                         }
@@ -88,12 +87,12 @@ public class Ecosystem {
     }
 
 
-    public void addPlant(String name, String sp, int age, int height, String color) {
-        plants.add(new Plant(name, sp, age, height, color));
+    public void addPlant(String species, double growthRate, double carryingCapacity) {
+        plants.add(new Plant(species, growthRate, carryingCapacity));
     }
 
-    public void addAnimal(String name, String sp, int age) {
-        animals.add(new Animal(name, sp, age));
+    public void addAnimal(String species, double growthRate, double carryingCapacity, int m, int f) {
+        animals.add(new Animal(species, growthRate, carryingCapacity, m, f));
     }
 
     public List<Plant> getPlants() {
@@ -111,4 +110,6 @@ public class Ecosystem {
     public String getName() {
         return name;
     }
+
+ 
 }

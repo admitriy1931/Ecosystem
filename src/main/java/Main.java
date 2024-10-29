@@ -6,13 +6,13 @@ public class Main {
 
 
 
-        System.out.println("Hello world!");
-        Plant oak = new Plant("Дуб", "дерево", 100, 4, "black");
-        System.out.println(oak.getColor());
-        System.out.println(oak.getSpecies());
-        Animal a = new Animal("белка", "мышь", 2);
-        System.out.println(a.getSpecies());
-        System.out.println(a.getName());
+//        System.out.println("Hello world!");
+//        Plant oak = new Plant("Дуб", "дерево", 100, 4, "black");
+//        System.out.println(oak.getColor());
+//        System.out.println(oak.getSpecies());
+//        Animal a = new Animal("белка", "мышь", 2);
+//        System.out.println(a.getSpecies());
+//        System.out.println(a.getName());
 //        Ecosystem ecosystem = null;
 //        ecosystem = Ecosystem.load("МояСимуляция");
 //

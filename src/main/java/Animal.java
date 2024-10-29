@@ -1,15 +1,19 @@
 public class Animal extends Organizm{
-    public Animal(String name, String species, int age) {
-        super(name, species, age);
+    public int male;
+    public int female;
+    public Animal(String species, double growthRate, double carryingCapacity, int male, int female) {
+        super(species, growthRate, carryingCapacity);
+        this.male = male;
+        this.female = female;
     }
-    @Override
-    public void interact() {
-        System.out.println(this.name + "животное");
+    public int getCount() {
+        return male + female;
     }
-    public String getName() {
-        return name;
+    public int getMale(){
+        return male;
     }
-    public int getAge() {
-        return age;
+    public int getFemale(){
+        return female;
     }
+
 }
