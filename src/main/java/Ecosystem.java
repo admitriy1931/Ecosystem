@@ -4,6 +4,7 @@ public class Ecosystem {
     private List<Plant> plants;
     private List<Animal> animals;
     private Map<String, Integer> resources;
+
     public Ecosystem(String name) {
         this.name = name;
         this.plants = new ArrayList<>();
@@ -16,6 +17,7 @@ public class Ecosystem {
         resources.put("Емкость", 60);
         resources.put("Доступность ресурсов", 1);
     }
+
     public void setResource(String resourceName, int value) {
         if (resources.containsKey(resourceName)) {
             resources.put(resourceName, value);
@@ -38,11 +40,12 @@ public class Ecosystem {
 
         data.add("\nЖивотные:");
         for (Animal animal : animals) {
-            data.add(animal.getSpecies() + ": " + animal.getGrowthRate()+ ": " + animal.getInitialCapacity() + ":" + animal.getMale() + ":" + animal.getFemale());
+            data.add(animal.getSpecies() + ": " + animal.getGrowthRate() + ": " + animal.getInitialCapacity() + ":" + animal.getMale() + ":" + animal.getFemale());
         }
 
         FileHandler.writeToFile(fileName + ".txt", data);
     }
+
     public static Ecosystem load(String name) {
         Ecosystem ecosystem = new Ecosystem(name);
         List<String> data = FileHandler.readFromFile(name + ".txt");
@@ -109,4 +112,38 @@ public class Ecosystem {
     public String getName() {
         return name;
     }
+
+    public int getPlantPrediction(String type, int time) {
+        for (Plant plant : plants) {
+            if (plant.getSpecies().equals(type)) {
+                double k = resources.get("Емкость");
+                double p = plant.getInitialCapacity();
+                double r = plant.getGrowthRate();
+                double water = resources.get("Доступность ресурсов");
+                r *= water;
+                double exponent = -r * time;
+                double population = k / (1 + (k - p) / p * Math.exp(exponent));
+                return (int) Math.round(population);
+            }
+        }
+        for (Animal animal : animals) {
+            if (animal.getSpecies().equals(type)) {
+                double k = resources.get("Емкость");
+                double p = animal.getInitialCapacity();
+                double r = animal.getGrowthRate();
+                double water = resources.get("Доступность ресурсов");
+                int difference = Math.abs(animal.getMale() - animal.getFemale());
+                double re = 1.0 - (0.01 * difference / Math.max(animal.getMale() + animal.getFemale(), 1));
+                r *= water;
+
+                double exponent = -r * time;
+                double population = k / (1 + (k - p) / p * Math.exp(exponent));
+                population*= Math.max(re, 0.1);
+                return (int) Math.round(population);
+            }
+        }
+        System.out.println("Организм\"" + type + "\" не найдено.");
+        return 0;
+    }
 }
+

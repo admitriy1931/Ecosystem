@@ -2,9 +2,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        //EcosystemScanner.run();
-
-
+        EcosystemScanner.run();
 
 //        System.out.println("Hello world!");
 //        Plant oak = new Plant("Дуб", "дерево", 100, 4, "black");
