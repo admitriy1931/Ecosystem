@@ -30,17 +30,17 @@ public class Ecosystem {
         List<String> data = new ArrayList<>();
         data.add("Ресурсы:");
         for (Map.Entry<String, Integer> entry : resources.entrySet()) {
-            data.add(entry.getKey() + ": " + entry.getValue());
+            data.add(entry.getKey() + " : " + entry.getValue());
         }
 
         data.add("\nРастения:");
         for (Plant plant : plants) {
-            data.add(plant.getSpecies() + ": " + plant.getGrowthRate() + ": " + plant.getInitialCapacity());
+            data.add(plant.getSpecies() + " : " + plant.getGrowthRate() + " : " + plant.getInitialCapacity());
         }
 
         data.add("\nЖивотные:");
         for (Animal animal : animals) {
-            data.add(animal.getSpecies() + ": " + animal.getGrowthRate() + ": " + animal.getInitialCapacity() + ":" + animal.getMale() + ":" + animal.getFemale());
+            data.add(animal.getSpecies() + " : " + animal.getGrowthRate() + " : " + animal.getInitialCapacity() + " : " + animal.getMale() + " : " + animal.getFemale());
         }
 
         FileHandler.writeToFile(fileName + ".txt", data);
@@ -59,7 +59,7 @@ public class Ecosystem {
             } else if (line.startsWith("Животные:")) {
                 currentSection = "animals";
             } else {
-                String[] parts = line.split(": ");
+                String[] parts = line.split(" : ");
                 if (parts.length < 2 || parts.length > 3) {
                     continue;  // Пропустить некорректные строки
                 }
