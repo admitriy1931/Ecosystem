@@ -104,8 +104,8 @@ public class EcosystemScanner {
             System.out.println("1. Добавить растение");
             System.out.println("2. Добавить животное");
             System.out.println("3. Посмотреть ресурсы");
-            System.out.println("4. Посмотреть животных");
-            System.out.println("5. Посмотреть растения");
+            System.out.println("4. Посмотреть растения");
+            System.out.println("5. Посмотреть животных");
             System.out.println("6. Сохранить экосистему");
             System.out.println("Нажмите 'm' для возврата в главное меню.");
 
