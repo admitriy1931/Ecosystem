@@ -1,20 +1,20 @@
 public abstract class Organizm {
     protected String species;
     protected double growthRate;
-    protected double carryingCapacity;
+    protected int initialCapacity;
 
-    public Organizm(String species, double growthRate, double carryingCapacity) {
+    public Organizm(String species, double growthRate, int initialCapacity) {
         this.species = species;
         this.growthRate = growthRate;
-        this.carryingCapacity = carryingCapacity;
+        this.initialCapacity = initialCapacity;
     }
 
     public String getSpecies() {
         return species;
     }
     public double getGrowthRate(){return growthRate;}
-    public double getCarryingCapacity() {
-        return carryingCapacity;
+    public int getInitialCapacity() {
+        return initialCapacity;
     }
 
 

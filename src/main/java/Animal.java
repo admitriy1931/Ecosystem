@@ -1,8 +1,8 @@
 public class Animal extends Organizm{
     public int male;
     public int female;
-    public Animal(String species, double growthRate, double carryingCapacity, int male, int female) {
-        super(species, growthRate, carryingCapacity);
+    public Animal(String species, double growthRate, int initialCapacity, int male, int female) {
+        super(species, growthRate, initialCapacity);
         this.male = male;
         this.female = female;
     }

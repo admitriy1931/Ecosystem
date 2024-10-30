@@ -1,8 +1,7 @@
+import java.util.Map;
 
 public class Plant extends Organizm {
-    public Plant(String species, double growthRate, double carryingCapacity) {
-        super(species, growthRate, carryingCapacity);
-
+    public Plant(String species, double growthRate, int initialCapacity) {
+        super(species, growthRate, initialCapacity);
     }
-
 }
