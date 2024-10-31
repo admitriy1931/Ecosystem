@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.*;
 public class FileHandler {
     public static void writeToFile(String fileName, List<String> data) {
-            // Проверка и создание файла, если он не существует
             File file = new File(fileName);
             try {
                 if (file.createNewFile()) {
@@ -18,7 +17,7 @@ public class FileHandler {
                         writer.newLine();
                     }
                 }
-                System.out.println("Данные успешно записаны в файл: " + fileName);
+                System.out.println("Данные записаны в файл: " + fileName);
             } catch (IOException ex) {
                 System.err.println("Ошибка записи в файл: " + ex.getMessage());
             }

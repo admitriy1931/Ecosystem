@@ -32,7 +32,6 @@ public class Ecosystem {
         for (Map.Entry<String, Integer> entry : resources.entrySet()) {
             data.add(entry.getKey() + " : " + entry.getValue());
         }
-
         data.add("\nРастения:");
         for (Plant plant : plants) {
             data.add(plant.getSpecies() + " : " + plant.getGrowthRate() + " : " + plant.getInitialCapacity());
@@ -61,7 +60,7 @@ public class Ecosystem {
             } else {
                 String[] parts = line.split(" : ");
                 if (parts.length < 2 || parts.length > 3) {
-                    continue;  // Пропустить некорректные строки
+                    continue;
                 }
                 switch (currentSection) {
                     case "resources" -> {
@@ -75,7 +74,7 @@ public class Ecosystem {
                         }
                     }
                     case "animals" -> {
-                        if (parts.length == 5) { // Ожидаем 2 части: Имя, Количество
+                        if (parts.length == 5) {
                             ecosystem.animals.add(new Animal(parts[0], Double.parseDouble(parts[1]), Integer.parseInt(parts[2]), Integer.parseInt(parts[3]), Integer.parseInt(parts[4])));
                         } else {
                             System.err.println("Неверный формат животного: " + line);
@@ -113,7 +112,7 @@ public class Ecosystem {
         return name;
     }
 
-    public int getPlantPrediction(String type, int time) {
+    public int getPrediction(String type, int time) {
         for (Plant plant : plants) {
             if (plant.getSpecies().equals(type)) {
                 double k = resources.get("Емкость");

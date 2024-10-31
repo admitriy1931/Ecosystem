@@ -9,8 +9,6 @@ public class EcosystemScanner {
     public static void run() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Симулятор экосистемы");
-
-        // Load available ecosystems from the current directory
         loadAvailableEcosystems();
 
         while (true) {
@@ -23,22 +21,17 @@ public class EcosystemScanner {
 
             switch (choice) {
                 case "1" -> {
-                    // Создание новой экосистемы
                     System.out.print("Введите имя экосистемы: ");
-                    String ecosystemName = scanner.nextLine().trim() + ".txt"; // Append .txt for consistency
+                    String ecosystemName = scanner.nextLine().trim() + ".txt";
 
                     if (!availableEcosystems.contains(ecosystemName)) {
-                        Ecosystem ecosystem = new Ecosystem(ecosystemName.replace(".txt", "")); // Create ecosystem without .txt
-
-                        // Ввод ресурсов
+                        Ecosystem ecosystem = new Ecosystem(ecosystemName.replace(".txt", ""));
                         System.out.print("Введите емкость: ");
                         int capacity = Integer.parseInt(scanner.nextLine());
                         ecosystem.setResource("Емкость", capacity);
-
                         System.out.print("Введите доступность ресурсов (например, 1 для полной доступности): ");
                         int resourceAvailability = Integer.parseInt(scanner.nextLine());
                         ecosystem.setResource("Доступность ресурсов", resourceAvailability);
-
                         availableEcosystems.add(ecosystemName);
                         manageEcosystem(scanner, ecosystem);
                     } else {
@@ -46,7 +39,6 @@ public class EcosystemScanner {
                     }
                 }
                 case "2" -> {
-                    // Загрузка экосистемы
                     if (availableEcosystems.isEmpty()) {
                         System.out.println("Нет доступных экосистем для загрузки.");
                         break;
@@ -57,7 +49,7 @@ public class EcosystemScanner {
                     }
                     int index = Integer.parseInt(scanner.nextLine()) - 1;
                     if (index >= 0 && index < availableEcosystems.size()) {
-                        String loadName = availableEcosystems.get(index).replace(".txt", ""); // Load name without .txt
+                        String loadName = availableEcosystems.get(index).replace(".txt", "");
                         try {
                             Ecosystem ecosystem = Ecosystem.load(loadName);
                             System.out.println("Экосистема загружена: " + ecosystem.getName());
@@ -70,7 +62,6 @@ public class EcosystemScanner {
                     }
                 }
                 case "3" -> {
-                    // Посмотреть доступные экосистемы
                     if (availableEcosystems.isEmpty()) {
                         System.out.println("Нет доступных экосистем.");
                     } else {
@@ -79,7 +70,6 @@ public class EcosystemScanner {
                     }
                 }
                 case "4" -> {
-                    // Выход из приложения
                     System.out.println("Выход из программы.");
                     return;
                 }
@@ -107,16 +97,16 @@ public class EcosystemScanner {
             System.out.println("4. Посмотреть растения");
             System.out.println("5. Посмотреть животных");
             System.out.println("6. Сохранить экосистему");
+            System.out.println("7. Предсказать число особей");
             System.out.println("Нажмите 'm' для возврата в главное меню.");
 
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("m")) {
-                break; // Возврат в главное меню
+                break;
             }
 
             switch (input) {
                 case "1" -> {
-                    // Добавление растения
                     System.out.print("Введите название вида растения: ");
                     String species = scanner.nextLine();
                     System.out.print("Введите скорость репродукции (от 0 до 1): ");
@@ -127,7 +117,6 @@ public class EcosystemScanner {
                     System.out.println("Растение добавлено.");
                 }
                 case "2" -> {
-                    // Добавление животного
                     System.out.print("Введите название вида животного: ");
                     String species = scanner.nextLine();
                     System.out.print("Введите скорость репродукции (от 0 до 1): ");
@@ -148,7 +137,6 @@ public class EcosystemScanner {
                     });
                 }
                 case "4" -> {
-                    // Просмотр растений
                     System.out.println("Растения в экосистеме:");
                     for (Plant plant : ecosystem.getPlants()) {
                         System.out.println("Вид: " + plant.getSpecies() +
@@ -157,7 +145,6 @@ public class EcosystemScanner {
                     }
                 }
                 case "5" -> {
-                    // Просмотр животных
                     System.out.println("Животные в экосистеме:");
                     for (Animal animal : ecosystem.getAnimals()) {
                         System.out.println("Вид: " + animal.getSpecies() +
@@ -168,12 +155,28 @@ public class EcosystemScanner {
                     }
                 }
                 case "6" -> {
-                    // Используем имя экосистемы для сохранения
-                    String fileName = ecosystem.getName(); // Get the name without .txt
+                    String fileName = ecosystem.getName();
                     ecosystem.save(fileName);
                     System.out.println("Экосистема сохранена в " + fileName + ".txt.");
                 }
+                case "7" -> {
+                    System.out.println("Введите название вида: ");
+                    String species = scanner.nextLine();
+                    System.out.println("Введите t: ");
+                    int time = Integer.parseInt(scanner.nextLine());
+                    for (Plant plant : ecosystem.getPlants()) {
+                        if (plant.getSpecies().equals(species)) {
+                            System.out.println("Предсказанное число особей для вида " + species + ": " + ecosystem.getPrediction(species, time));
+                        }
+                    }
+                    for (Animal animal : ecosystem.getAnimals()) {
+                        if (animal.getSpecies().equals(species)) {
+                            System.out.println("Предсказанное число особей " + species + ": " + ecosystem.getPrediction(species, time));
+                        }
+                    }
 
+                    System.out.println("Вид " + species + " не найден в экосистеме.");
+                }
                 default -> System.out.println("Неверный выбор. Пожалуйста, попробуйте еще раз.");
             }
         }
