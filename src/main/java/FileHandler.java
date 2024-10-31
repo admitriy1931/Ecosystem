@@ -9,8 +9,6 @@ public class FileHandler {
                 } else {
                     System.out.println("Файл уже существует: " + fileName);
                 }
-
-                // Запись данных в файл
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
                     for (String line : data) {
                         writer.write(line);
@@ -34,5 +32,4 @@ public class FileHandler {
         }
         return data;
     }
-
 }
